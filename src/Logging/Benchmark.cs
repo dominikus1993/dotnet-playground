@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Logging
 {
+    [MemoryDiagnoser]
     public class LoggingBenchmark
     {
         public readonly ILoggerFactory _loggerFactory = LoggerFactory.Create(b => b.SetMinimumLevel(LogLevel.Warning));
