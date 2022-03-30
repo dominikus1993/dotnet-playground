@@ -1,27 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F48BD122-0CDE-44DC-A361-AE15C12EB353}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "src\Logging\Logging.csproj", "{814C003F-3962-404A-BAFB-C12F0A8E584D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "src\Logging\Logging.csproj", "{814C003F-3962-404A-BAFB-C12F0A8E584D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Closures", "src\Closures\Closures.csproj", "{748AD2C9-2626-4162-825D-D5C950BA172C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{814C003F-3962-404A-BAFB-C12F0A8E584D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{814C003F-3962-404A-BAFB-C12F0A8E584D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{814C003F-3962-404A-BAFB-C12F0A8E584D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{814C003F-3962-404A-BAFB-C12F0A8E584D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748AD2C9-2626-4162-825D-D5C950BA172C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748AD2C9-2626-4162-825D-D5C950BA172C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748AD2C9-2626-4162-825D-D5C950BA172C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748AD2C9-2626-4162-825D-D5C950BA172C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{814C003F-3962-404A-BAFB-C12F0A8E584D} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
+		{748AD2C9-2626-4162-825D-D5C950BA172C} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F041747-F2A3-438D-A07F-2810FA19D1EC}
 	EndGlobalSection
 EndGlobal
