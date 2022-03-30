@@ -10,7 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextPool<PersonsDbContext>(b =>
 {
-    b.UseSqlite("Data Source=persons.db");
+    var config = builder.Configuration.GetSection("ConnectionStrings").Get<AppDbConfiguration>();
+    b.UseSqlite(config.Persons);
 });
 var app = builder.Build();
 

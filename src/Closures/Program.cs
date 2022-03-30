@@ -5,4 +5,4 @@ using Closures;
 
 Console.WriteLine("Hello, World!");
 
-var summary = BenchmarkRunner.Run<ClosuresBenchmark>();
+var summary = BenchmarkRunner.Run<MethodGroupBenchmark>();

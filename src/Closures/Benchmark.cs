@@ -33,4 +33,21 @@ namespace Closures
             _cache.GetByClosure("xddddd");
         }
     }
+
+    [MemoryDiagnoser]
+    public class MethodGroupBenchmark
+    {
+
+        [Benchmark]
+        public void MethodGroupTest()
+        {
+            MethodGroup.Sum(1, 2, MethodGroup.Add);
+        }
+
+        [Benchmark]
+        public void Lambda()
+        {
+            MethodGroup.Sum(1, 2, (x, y) => MethodGroup.Add(x, y));
+        }
+    }
 }
