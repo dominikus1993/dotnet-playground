@@ -27,7 +27,6 @@ namespace LinqTest
             {
                 foreach (var item in _enumerable)
                 {
-
                 }
             }
         }
@@ -39,7 +38,6 @@ namespace LinqTest
             {
                 foreach (var item in _list)
                 {
-
                 }
             }
         }

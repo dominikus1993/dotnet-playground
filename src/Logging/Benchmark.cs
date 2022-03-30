@@ -14,7 +14,7 @@ namespace Logging
     public class LoggingBenchmark
     {
         public readonly ILoggerFactory _loggerFactory = LoggerFactory.Create(b => b.SetMinimumLevel(LogLevel.Warning));
-        private ILogger<LoggingBenchmark> _logger;
+        private readonly ILogger<LoggingBenchmark> _logger;
 
         public LoggingBenchmark()
         {

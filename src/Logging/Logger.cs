@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.Logging;
 
 namespace Logging
@@ -16,7 +15,8 @@ namespace Logging
     
     public static class LoggerDelegate
     {
-        private static readonly Action<ILogger, int, int, int, Exception?> _logAdd = LoggerMessage.Define<int, int, int>(LogLevel.Information, new EventId(0, "Add Two Numbers"), "Add Two Numbers: {A} + {B} = {Result}");
+        private static readonly Action<ILogger, int, int, int, Exception?> _logAdd = 
+                LoggerMessage.Define<int, int, int>(LogLevel.Information, new EventId(0, "Add Two Numbers"), "Add Two Numbers: {A} + {B} = {Result}");
         
         public static void LogAddDelegate(this ILogger logger, int a, int b, int result)
         {
