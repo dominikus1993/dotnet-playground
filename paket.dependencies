@@ -8,3 +8,5 @@ nuget BenchmarkDotNet
 nuget Microsoft.EntityFrameworkCore.Design
 nuget ClrHeapAllocationAnalyzer 
 nuget Microsoft.EntityFrameworkCore.Sqlite
+nuget Newtonsoft.Json
+nuget System.Text.Json
