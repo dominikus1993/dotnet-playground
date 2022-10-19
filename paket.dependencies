@@ -10,3 +10,5 @@ nuget ClrHeapAllocationAnalyzer
 nuget Microsoft.EntityFrameworkCore.Sqlite
 nuget Newtonsoft.Json
 nuget System.Text.Json
+nuget System.Net.Http.Json
+nuget LanguageExt.Core

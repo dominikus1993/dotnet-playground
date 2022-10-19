@@ -2,3 +2,4 @@ Microsoft.Extensions.Logging
 BenchmarkDotNet 
 Newtonsoft.Json
 System.Text.Json
+System.Net.Http.Json

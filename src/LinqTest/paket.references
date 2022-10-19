@@ -1,3 +1,4 @@
 Microsoft.Extensions.Logging 
 BenchmarkDotNet
 ClrHeapAllocationAnalyzer
+LanguageExt.Core
