@@ -12,3 +12,5 @@ nuget Newtonsoft.Json
 nuget System.Text.Json
 nuget System.Net.Http.Json
 nuget LanguageExt.Core
+nuget OneOf
+nuget OneOf.SourceGenerator
