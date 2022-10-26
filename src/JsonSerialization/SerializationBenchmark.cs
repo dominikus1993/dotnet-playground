@@ -5,7 +5,7 @@ namespace JsonSerialization;
 [MemoryDiagnoser]
 public class SerializationBenchmark
 {
-    private readonly Person _person = new Person { Name = "John Doe", Age = 42 };
+    private readonly Person _person = new Person { Name = "John Doe", Age = 42, Tags = new []{"xD"}};
     
     [Benchmark]
     public void NewtonsoftBenchmark()

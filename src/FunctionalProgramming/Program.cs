@@ -10,6 +10,7 @@ var names = new[] { "SomeFlag" };
 
 var res = TestHelper.GetStatuses(names);
 
-Option<string> txt = Optional<string>(null).Where(x => x.Length > 0);
+Option<string> txt = await OptionTests.Test2(null);
 
 Console.WriteLine($"Hello, World! {res.Contains(Test.SomeFlag)} {txt}");
+
