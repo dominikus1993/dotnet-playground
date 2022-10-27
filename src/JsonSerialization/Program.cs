@@ -18,7 +18,7 @@ var person2 = new Person() { Age = 21, Name = "xD" };
 
 Console.WriteLine($"{ChecksumGenerator.GetChecksum(person1)} === {ChecksumGenerator.GetChecksum(person2)}");
 
-var persons = new[] { new Person { Age = 2, Name = "xD", Tags = new []{"xD"}} };
+var persons = new[] { new Person { Age = 2, Name = "xD", Tags = new []{new Tag() { Value = "xD"}}} };
 
 var jsonB = JsonSerializer.SerializeToUtf8Bytes(persons);
 
@@ -36,4 +36,4 @@ await foreach (var item in personsFomFile)
 var json = JsonSerializer.Serialize(persons);
 Console.WriteLine(json);
 
-Console.WriteLine(JsonConvert.DeserializeObject<Person[]>(json)[0].Tags[0]);
+Console.WriteLine(JsonConvert.DeserializeObject<Person[]>(json)[0].Tags[0].Value);
