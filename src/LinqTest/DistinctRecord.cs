@@ -8,8 +8,18 @@ public record Shop(int ShopNumber);
 
 internal class ShopComparer : IEqualityComparer<Shop>
 {
-    public bool Equals(Shop stock1, Shop stock2)
+    public bool Equals(Shop? stock1, Shop? stock2)
     {
+        if (stock1 is null && stock2 is null)
+        {
+            return true;
+        }
+
+        if (stock1 is null || stock2 is null)
+        {
+            return false;
+        }
+        
         return stock1.ShopNumber == stock2.ShopNumber;
     }
 
