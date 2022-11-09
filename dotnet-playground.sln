@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonSerialization", "src\Js
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalProgramming", "src\FunctionalProgramming\FunctionalProgramming.csproj", "{90BD8A22-38E3-42B3-931B-A88C2F8DEA2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClient", "src\HttpClient\HttpClient.csproj", "{D2D07491-849F-490C-BE2F-A42C1CF195C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{90BD8A22-38E3-42B3-931B-A88C2F8DEA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90BD8A22-38E3-42B3-931B-A88C2F8DEA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90BD8A22-38E3-42B3-931B-A88C2F8DEA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D07491-849F-490C-BE2F-A42C1CF195C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D07491-849F-490C-BE2F-A42C1CF195C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D07491-849F-490C-BE2F-A42C1CF195C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D07491-849F-490C-BE2F-A42C1CF195C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{25E924B7-EF40-4682-A957-0EED4E381D53} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
 		{62EA9585-D6C4-4134-9533-47CF905246CF} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
 		{90BD8A22-38E3-42B3-931B-A88C2F8DEA2F} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
+		{D2D07491-849F-490C-BE2F-A42C1CF195C4} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F041747-F2A3-438D-A07F-2810FA19D1EC}

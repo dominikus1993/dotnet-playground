@@ -1,7 +1,7 @@
 source https://api.nuget.org/v3/index.json
 
 storage: none
-framework: net6.0
+framework: net7.0
 
 nuget Microsoft.Extensions.Logging 
 nuget BenchmarkDotNet 
@@ -14,3 +14,4 @@ nuget System.Net.Http.Json
 nuget LanguageExt.Core
 nuget OneOf
 nuget OneOf.SourceGenerator
+nuget Swashbuckle.AspNetCore
