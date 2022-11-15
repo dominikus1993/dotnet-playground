@@ -15,3 +15,4 @@ nuget LanguageExt.Core
 nuget OneOf
 nuget OneOf.SourceGenerator
 nuget Swashbuckle.AspNetCore
+nuget Microsoft.IO.RecyclableMemoryStream
