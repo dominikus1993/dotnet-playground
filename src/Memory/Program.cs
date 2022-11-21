@@ -9,4 +9,4 @@ using Memory;
 using Microsoft.IO;
 
 
-var summary = BenchmarkRunner.Run<BenchmarkBenchmark>();
+var summary = BenchmarkRunner.Run<StringBenchmark>();
