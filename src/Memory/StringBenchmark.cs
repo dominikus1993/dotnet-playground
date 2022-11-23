@@ -8,6 +8,7 @@ namespace Memory;
 public class StringBenchmark
 {
     private const string text = "Jana Pawła 2137";
+    private const string key = "{stocks/1}.2137";
     
     [Benchmark]
     public string Slow()
@@ -30,5 +31,17 @@ public class StringBenchmark
     public string SimpleRegexSpan()
     {
         return StringSpanRegexExtensions.SanitizeToUrl(text);
+    } 
+    
+    
+    [Benchmark]
+    public int SlowKey()
+    {
+        return StringSpanRegexExtensions.GetProductIdFromRedisKeyWithoutSpan(key);
+    } 
+    [Benchmark]
+    public int FastKey()
+    {
+        return StringSpanRegexExtensions.GetProductIdFromRedisKey(key);
     } 
 }

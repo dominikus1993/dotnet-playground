@@ -168,5 +168,33 @@ namespace Shops.Domain.Extensions
 
             return MultipleDashRegex().Replace(Regexp().Replace(lowerText, "-"),"-");
         }
+        
+        public static int GetProductIdFromRedisKey(ReadOnlySpan<char> key)
+        {
+            var pointIndex = key.IndexOf('.');
+            if (pointIndex != -1)
+            {
+                var result = key.Slice(pointIndex + 1);
+                return int.Parse(result);
+            }
+
+            throw new Exception("xDDD");
+        }
+        
+        public static int GetProductIdFromRedisKey(string key)
+        {
+            return GetProductIdFromRedisKey(key.AsSpan());
+        }
+        
+        public static int GetProductIdFromRedisKeyWithoutSpan(string key)
+        {
+            var splited = key.Split('.');
+            if (splited.Length >= 2 && int.TryParse(splited[1], out var result))
+            {
+                return result;
+            }
+
+            throw new Exception("xDDD");
+        }
     }
 }
