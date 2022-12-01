@@ -12,13 +12,28 @@ var res = TestHelper.GetStatuses(names);
 
 Option<string> txt = await OptionTests.Test2(null);
 
-Console.WriteLine($"Hello, World! {res.Contains(Test.SomeFlag)} {txt}");
+var result = B();
 
-var res2 = A().ToArray();
-
-foreach (var value in res2)
+switch (result.Case)
 {
-    Console.WriteLine(value);
+    case Exception exception:
+        Console.WriteLine("Blad");
+        break;
+    default:
+        Console.WriteLine("xDDDD");
+        break;
+}
+
+Either<Exception, Unit> B()
+{
+    try
+    {
+        return Right(Unit.Default);
+    }
+    catch (Exception e)
+    {
+        return Left<Exception, Unit>(new MyTestException("xDDD"));
+    }
 }
 
 IEnumerable<int> A()
@@ -32,5 +47,16 @@ IEnumerable<int> A()
         }
 
         yield return value * 2;
+    }
+}
+
+class MyTestException : Exception
+{
+    public MyTestException(string? message) : base(message)
+    {
+    }
+
+    public MyTestException(string? message, Exception? innerException) : base(message, innerException)
+    {
     }
 }
