@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClient", "src\HttpClien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memory", "src\Memory\Memory.csproj", "{B389EA80-60AD-4FA0-B516-C9F37F054D26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Channels", "src\Channels\Channels.csproj", "{926C6845-B468-4AD8-94D4-FB7FBAB169FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{B389EA80-60AD-4FA0-B516-C9F37F054D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B389EA80-60AD-4FA0-B516-C9F37F054D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B389EA80-60AD-4FA0-B516-C9F37F054D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{926C6845-B468-4AD8-94D4-FB7FBAB169FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{926C6845-B468-4AD8-94D4-FB7FBAB169FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{926C6845-B468-4AD8-94D4-FB7FBAB169FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{926C6845-B468-4AD8-94D4-FB7FBAB169FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{90BD8A22-38E3-42B3-931B-A88C2F8DEA2F} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
 		{D2D07491-849F-490C-BE2F-A42C1CF195C4} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
 		{B389EA80-60AD-4FA0-B516-C9F37F054D26} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
+		{926C6845-B468-4AD8-94D4-FB7FBAB169FC} = {F48BD122-0CDE-44DC-A361-AE15C12EB353}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F041747-F2A3-438D-A07F-2810FA19D1EC}
