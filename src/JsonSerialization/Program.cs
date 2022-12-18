@@ -12,13 +12,13 @@ Console.WriteLine("Hello, World!");
 
 //var summary = BenchmarkRunner.Run<SerializationBenchmark>();
 
-var person1 = new Person() { Age = 21, Name = "xD" };
-var person2 = new Person() { Age = 21, Name = "xD" };
+var person1 = new Person() { Age = 21, Name = new Name("xD") };
+var person2 = new Person() { Age = 21, Name = new Name("xD")};
 
 
 Console.WriteLine($"{ChecksumGenerator.GetChecksum(person1)} === {ChecksumGenerator.GetChecksum(person2)}");
 
-var persons = new[] { new Person { Age = 2, Name = "xD", Tags = new []{new Tag() { Value = "xD"}}} };
+var persons = new[] { new Person { Age = 2, Name = new Name("xD"), Tags = new []{new Tag() { Value = "xD"}}} };
 
 var jsonB = JsonSerializer.SerializeToUtf8Bytes(persons);
 
@@ -36,4 +36,4 @@ await foreach (var item in personsFomFile)
 var json = JsonSerializer.Serialize(persons);
 Console.WriteLine(json);
 
-Console.WriteLine(JsonConvert.DeserializeObject<Person[]>(json)[0].Tags[0].Value);
+Console.WriteLine(JsonSerializer.Deserialize<Person[]>(json)[0].Tags[0].Value);
