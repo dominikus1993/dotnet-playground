@@ -12,6 +12,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MethodTimer.Fody" Version="3.2.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

@@ -1,11 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Buffers;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
 using BenchmarkDotNet.Running;
 
 using Memory;
+
+using MethodTimer;
 
 using Microsoft.IO;
 
@@ -14,7 +17,6 @@ using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
 
-var timer = new Stopwatch();
 
 var Encoder = new PngEncoder()
 {
@@ -23,35 +25,23 @@ var Encoder = new PngEncoder()
     Quantizer = new WuQuantizer(new QuantizerOptions { DitherScale = 0.5f }),
     CompressionLevel = PngCompressionLevel.BestCompression
 };
-List<Size> sizes = new() { new Size(100, 100), new Size(120, 120), new Size(130, 130), new Size(140, 140) };
-timer.Start();
+List<Size> sizes = new() { new Size(71, 55), new Size(190, 338), new Size(350, 360), new Size(720, 1280) }; ;
 await using var source = File.OpenRead("./jp2137.jpg");
-// using var image = await Image.LoadAsync(source);
+await using var memoryStream = new MemoryStream();
 
-// await Parallel.ForEachAsync(sizes, new ParallelOptions() { MaxDegreeOfParallelism = 21 }, async (size, token) =>
-// {
-//     Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
-//     Console.WriteLine($"Size {size.Width}");
-//     image.Mutate(operation =>
-//         operation
-//             .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
-//     );
-//     await image.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder, cancellationToken: token);
-// });
+// Use the .CopyTo() method and write current filestream to memory stream
+await source.CopyToAsync(memoryStream);
 
-foreach (var size in sizes)
+var file = memoryStream.ToArray();
+
+var results = await ImageSharpUtils.ParallelImageSave(file, sizes);
+
+
+Console.WriteLine($"Koniec");
+
+foreach (var size in results)
 {
-    Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
-    Console.WriteLine($"Size {size.Width}");
-    source.Seek(0, SeekOrigin.Begin);
-    using var image = await Image.LoadAsync(source);
-    image.Mutate(operation =>
-        operation
-            .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
-    );
-    await image.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
+    Console.WriteLine($"Size: {size.Width}, {size.Height}");
 }
 
-timer.Stop();
-
-Console.WriteLine($"Elapsed: {timer.Elapsed}");
+ImageSharpUtils.A();
