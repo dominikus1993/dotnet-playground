@@ -31,18 +31,18 @@ public static class ImageSharpUtils
         // Convert Stream To Array
         var result = new List<Size>(sizes.Count);
         await using MemoryStream stream = new(file);
+        stream.Seek(0, SeekOrigin.Begin);
+        using var image = await Image.LoadAsync(stream);
         foreach (var size in sizes)
         {
             Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
             Console.WriteLine($"Size {size.Width}");
-            stream.Seek(0, SeekOrigin.Begin);
-            using var image = await Image.LoadAsync(stream);
 
-            image.Mutate(operation =>
+            var resizedImage = image.Clone(operation =>
                 operation
                     .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
             );
-            await image.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
+            await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
             result.Add(size);
         }
 
@@ -54,19 +54,20 @@ public static class ImageSharpUtils
     {
         // Convert Stream To Array
         var result = new ConcurrentBag<Size>();
+        await using MemoryStream stream = new(file);
+        stream.Seek(0, SeekOrigin.Begin);
+        using var image = await Image.LoadAsync(stream);
         await Parallel.ForEachAsync(sizes,
             new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (size, token) =>
             {
                 Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
                 Console.WriteLine($"Size {size.Width}");
                 await using MemoryStream stream = new(file);
-                using var image = await Image.LoadAsync(stream, token);
-
-                image.Mutate(operation =>
+                using var resizedImage = image.Clone(operation =>
                     operation
                         .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
                 );
-                await image.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder, cancellationToken: token);
+                await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder, cancellationToken: token);
                 result.Add(size);
             });
         return result;
