@@ -2,6 +2,8 @@
 
 using MethodTimer;
 
+using Microsoft.IO;
+
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
@@ -11,6 +13,11 @@ namespace Memory;
 
 public static class ImageSharpUtils
 {
+    private static readonly RecyclableMemoryStreamManager Manager = new RecyclableMemoryStreamManager()
+    {
+    
+    };
+
     private static readonly PngEncoder Encoder = new()
     {
         BitDepth = PngBitDepth.Bit8,
@@ -62,11 +69,11 @@ public static class ImageSharpUtils
             {
                 Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
                 Console.WriteLine($"Size {size.Width}");
-                await using MemoryStream stream = new(file);
                 using var resizedImage = image.Clone(operation =>
                     operation
                         .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
                 );
+                
                 await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder, cancellationToken: token);
                 result.Add(size);
             });

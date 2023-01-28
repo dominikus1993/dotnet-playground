@@ -1,8 +1,8 @@
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Shops.Domain.Extensions
 {
-    
     public static class SlowStringExtensions
     {
         private static string ReplacePolishLetters(string text)

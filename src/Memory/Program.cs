@@ -12,6 +12,8 @@ using MethodTimer;
 
 using Microsoft.IO;
 
+using Shops.Domain.Extensions;
+
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
@@ -27,12 +29,7 @@ var Encoder = new PngEncoder()
 };
 List<Size> sizes = new() { new Size(71, 55), new Size(190, 338), new Size(350, 360), new Size(720, 1280) }; ;
 await using var source = File.OpenRead("./jp2137.jpg");
-await using var memoryStream = new MemoryStream();
-
-// Use the .CopyTo() method and write current filestream to memory stream
-await source.CopyToAsync(memoryStream);
-
-var file = memoryStream.ToArray();
+var file =  source.ReadAsBytes();
 
 var results = await ImageSharpUtils.ParallelImageSave(file, sizes);
 
