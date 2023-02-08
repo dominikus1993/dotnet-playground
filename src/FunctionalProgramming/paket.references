@@ -1,3 +1,4 @@
 OneOf
 OneOf.SourceGenerator
 LanguageExt.Core
+BenchmarkDotNet
