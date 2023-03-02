@@ -31,7 +31,7 @@ List<Size> sizes = new() { new Size(71, 55), new Size(190, 338), new Size(350, 3
 await using var source = File.OpenRead("./jp2137.jpg");
 var file =  source.ReadAsBytes();
 
-var results = await ImageSharpUtils.ParallelImageSave(file, sizes);
+var results = await ImageSharpUtils.OneThreadImageSave(file, sizes).ToListAsync();
 
 
 Console.WriteLine($"Koniec");
