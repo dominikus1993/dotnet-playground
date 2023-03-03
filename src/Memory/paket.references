@@ -1,2 +1,5 @@
 Microsoft.IO.RecyclableMemoryStream 
 BenchmarkDotNet 
+MethodTimer.Fody
+SixLabors.ImageSharp
+System.Linq.Async

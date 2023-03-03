@@ -25,7 +25,6 @@ public static class ImageSharpUtils
         Quantizer = new WuQuantizer(new QuantizerOptions { DitherScale = 0.5f }),
         CompressionLevel = PngCompressionLevel.BestCompression
     };
-    
 
     [Time]
     public static void A()
@@ -34,24 +33,27 @@ public static class ImageSharpUtils
     }
     
     [Time]
-    public static async IAsyncEnumerable<Size> OneThreadImageSave(byte[] file, IReadOnlyCollection<Size> sizes)
+    public static async Task<IReadOnlyCollection<Size>> OneThreadImageSave(byte[] file, IReadOnlyCollection<Size> sizes)
     {
         // Convert Stream To Array
+        var result = new List<Size>(sizes.Count);
         await using MemoryStream stream = new(file);
         stream.Seek(0, SeekOrigin.Begin);
         using var image = await Image.LoadAsync(stream);
         foreach (var size in sizes)
         {
-            Console.WriteLine($"Therad id: {Environment.CurrentManagedThreadId}");
+            Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
             Console.WriteLine($"Size {size.Width}");
-        
+
             var resizedImage = image.Clone(operation =>
                 operation
                     .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
             );
             await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
-            yield return size;
+            result.Add(size);
         }
+
+        return result;
     }
 
     [Time]
@@ -65,7 +67,7 @@ public static class ImageSharpUtils
         await Parallel.ForEachAsync(sizes,
             new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (size, token) =>
             {
-                Console.WriteLine($"Therad id: {Environment.CurrentManagedThreadId}");
+                Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
                 Console.WriteLine($"Size {size.Width}");
                 using var resizedImage = image.Clone(operation =>
                     operation

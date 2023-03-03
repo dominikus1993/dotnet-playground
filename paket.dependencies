@@ -16,3 +16,7 @@ nuget OneOf
 nuget OneOf.SourceGenerator
 nuget Swashbuckle.AspNetCore
 nuget Microsoft.IO.RecyclableMemoryStream
+nuget MethodTimer.Fody
+nuget SixLabors.ImageSharp
+nuget System.Linq.Async
+nuget Akka

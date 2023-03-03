@@ -10,8 +10,8 @@ public class OptionTests
         return txt + " super text";
     }
 
-    public static async Task<Option<string>> Test2(string? txt)
+    public static Task<Option<string>> Test2(string? txt)
     {
-        return await Optional(txt).Where(x => !string.IsNullOrEmpty(x)).BindAsync(async t => await Test(t).ToAsync()).ToOption();
+        return Optional(txt).Where(x => !string.IsNullOrEmpty(x)).BindAsync(x => Test(x).ToAsync()).ToOption();
     }
 }
