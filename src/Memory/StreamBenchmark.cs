@@ -13,7 +13,7 @@ public class BenchmarkBenchmark
 {
     private static readonly RecyclableMemoryStreamManager manager = new RecyclableMemoryStreamManager()
     {
-    
+        ThrowExceptionOnToArray = true,
     };
 
     private Stream FileStream;
