@@ -33,10 +33,10 @@ public static class ImageSharpUtils
     }
     
     [Time]
-    public static async Task<IReadOnlyCollection<Size>> OneThreadImageSave(byte[] file, IReadOnlyCollection<Size> sizes)
+    public static async Task<IReadOnlyCollection<ImageSize>> OneThreadImageSave(byte[] file, IReadOnlyCollection<ImageSize> sizes)
     {
         // Convert Stream To Array
-        var result = new List<Size>(sizes.Count);
+        var result = new List<ImageSize>(sizes.Count);
         await using MemoryStream stream = new(file);
         stream.Seek(0, SeekOrigin.Begin);
         using var image = await Image.LoadAsync(stream);
@@ -47,7 +47,7 @@ public static class ImageSharpUtils
 
             var resizedImage = image.Clone(operation =>
                 operation
-                    .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
+                    .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(size.Width, size.Height) })
             );
             await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
             result.Add(size);
@@ -57,10 +57,10 @@ public static class ImageSharpUtils
     }
 
     [Time]
-    public static async Task<IReadOnlyCollection<Size>> ParallelImageSave(byte[] file, IReadOnlyCollection<Size> sizes)
+    public static async Task<IReadOnlyCollection<ImageSize>> ParallelImageSave(byte[] file, IReadOnlyCollection<ImageSize> sizes)
     {
         // Convert Stream To Array
-        var result = new ConcurrentBag<Size>();
+        var result = new ConcurrentBag<ImageSize>();
         await using MemoryStream stream = new(file);
         stream.Seek(0, SeekOrigin.Begin);
         using var image = await Image.LoadAsync(stream);
@@ -71,7 +71,7 @@ public static class ImageSharpUtils
                 Console.WriteLine($"Size {size.Width}");
                 using var resizedImage = image.Clone(operation =>
                     operation
-                        .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
+                        .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(size.Width, size.Height) })
                 );
                 
                 await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder, cancellationToken: token);

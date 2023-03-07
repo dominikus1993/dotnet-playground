@@ -20,3 +20,6 @@ nuget MethodTimer.Fody
 nuget SixLabors.ImageSharp
 nuget System.Linq.Async
 nuget Akka
+nuget System.Drawing.Common
+nuget Magick.NET-Q16-AnyCPU 
+nuget Microsoft.Maui.Graphics

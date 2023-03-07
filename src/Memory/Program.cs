@@ -27,11 +27,11 @@ var Encoder = new PngEncoder()
     Quantizer = new WuQuantizer(new QuantizerOptions { DitherScale = 0.5f }),
     CompressionLevel = PngCompressionLevel.BestCompression
 };
-List<Size> sizes = new() { new Size(71, 55), new Size(190, 338), new Size(350, 360), new Size(720, 1280) }; ;
+List<ImageSize> sizes = new() { new ImageSize(71, 55), new ImageSize(190, 338), new ImageSize(350, 360), new ImageSize(720, 1280) }; ;
 await using var source = File.OpenRead("./jp2137.jpg");
 var file =  source.ReadAsBytes();
 
-var results = await ImageSharpUtils.ParallelImageSave(file, sizes);
+var results = await SystemImage.OneThreadImageSave(file, sizes);
 
 
 Console.WriteLine($"Koniec");

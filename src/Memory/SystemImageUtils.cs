@@ -1,30 +1,24 @@
 ﻿using System.Collections.Concurrent;
 
 using MethodTimer;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 using Microsoft.IO;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Graphics.Platform;
 
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Processing.Processors.Quantization;
+using ResizeMode = Microsoft.Maui.Graphics.ResizeMode;
 
 namespace Memory;
 
-public static class ImageSharpUtils
+public static class SystemImage
 {
     private static readonly RecyclableMemoryStreamManager Manager = new RecyclableMemoryStreamManager()
     {
     
     };
-
-    private static readonly PngEncoder Encoder = new()
-    {
-        BitDepth = PngBitDepth.Bit8,
-        ColorType = PngColorType.Palette,
-        Quantizer = new WuQuantizer(new QuantizerOptions { DitherScale = 0.5f }),
-        CompressionLevel = PngCompressionLevel.BestCompression
-    };
+    
 
     [Time]
     public static void A()
@@ -33,50 +27,26 @@ public static class ImageSharpUtils
     }
     
     [Time]
-    public static async Task<IReadOnlyCollection<Size>> OneThreadImageSave(byte[] file, IReadOnlyCollection<Size> sizes)
+    public static async Task<IReadOnlyCollection<ImageSize>> OneThreadImageSave(byte[] file, IReadOnlyCollection<ImageSize> sizes)
     {
         // Convert Stream To Array
-        var result = new List<Size>(sizes.Count);
+        var result = new List<ImageSize>(sizes.Count);
         await using MemoryStream stream = new(file);
         stream.Seek(0, SeekOrigin.Begin);
-        using var image = await Image.LoadAsync(stream);
+        using var image = PlatformImage.FromStream(stream, ImageFormat.Png);
         foreach (var size in sizes)
         {
             Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
-            Console.WriteLine($"Size {size.Width}");
+            Console.WriteLine($"Size {size}");
+            using var newImage = image.Resize(size.Width, size.Height, ResizeMode.Fit, false);
 
-            var resizedImage = image.Clone(operation =>
-                operation
-                    .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
-            );
-            await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
+            await using MemoryStream memStream = new();
+            await newImage.SaveAsync(memStream, ImageFormat.Png);
+            
+            await File.WriteAllBytesAsync($"jp2137_{size.Height}_{size.Width}.jpg", memStream.ToArray());
             result.Add(size);
         }
 
-        return result;
-    }
-
-    [Time]
-    public static async Task<IReadOnlyCollection<Size>> ParallelImageSave(byte[] file, IReadOnlyCollection<Size> sizes)
-    {
-        // Convert Stream To Array
-        var result = new ConcurrentBag<Size>();
-        await using MemoryStream stream = new(file);
-        stream.Seek(0, SeekOrigin.Begin);
-        using var image = await Image.LoadAsync(stream);
-        await Parallel.ForEachAsync(sizes,
-            new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (size, token) =>
-            {
-                Console.WriteLine($"Therad id: {Thread.CurrentThread.ManagedThreadId}");
-                Console.WriteLine($"Size {size.Width}");
-                using var resizedImage = image.Clone(operation =>
-                    operation
-                        .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = size })
-                );
-                
-                await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder, cancellationToken: token);
-                result.Add(size);
-            });
         return result;
     }
 }

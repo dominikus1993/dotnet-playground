@@ -3,3 +3,5 @@ BenchmarkDotNet
 MethodTimer.Fody
 SixLabors.ImageSharp
 System.Linq.Async
+Magick.NET-Q16-AnyCPU 
+Microsoft.Maui.Graphics
