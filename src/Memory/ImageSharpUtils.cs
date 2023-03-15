@@ -49,7 +49,7 @@ public static class ImageSharpUtils
                 operation
                     .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(size.Width, size.Height) })
             );
-            await resizedImage.SaveAsPngAsync($"jp2137_{size.Height}_{size.Width}.jpg", Encoder);
+            await resizedImage.SaveAsPngAsync($"374406_back_{size.Height}_{size.Width}.png", Encoder);
             result.Add(size);
         }
 

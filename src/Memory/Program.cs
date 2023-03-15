@@ -28,10 +28,10 @@ var Encoder = new PngEncoder()
     CompressionLevel = PngCompressionLevel.BestCompression
 };
 List<ImageSize> sizes = new() { new ImageSize(71, 55), new ImageSize(190, 338), new ImageSize(350, 360), new ImageSize(720, 1280) }; ;
-await using var source = File.OpenRead("./jp2137.jpg");
+await using var source = File.OpenRead("./374406_back.png");
 var file =  source.ReadAsBytes();
 
-var results = await SystemImage.OneThreadImageSave(file, sizes);
+var results = await MagicNetUtils.OneThreadImageSave(file, sizes);
 
 
 Console.WriteLine($"Koniec");
