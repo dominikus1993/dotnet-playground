@@ -20,4 +20,5 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
 
 
-BenchmarkRunner.Run<BenchmarkBenchmark>();
+BenchmarkRunner.Run<StringBenchmark>();
+

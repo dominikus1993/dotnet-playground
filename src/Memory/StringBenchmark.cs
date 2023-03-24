@@ -7,41 +7,20 @@ namespace Memory;
 [MemoryDiagnoser]
 public class StringBenchmark
 {
-    private const string text = "Jana Pawła 2137";
-    private const string key = "{stocks/1}.2137";
-    
+    private const string text = "Jana Pawła 2137 jp2gmd xDDDDDDDDDDDDDDDDDDD ja jebie xDDDD";
+
+    private static readonly Dictionary<char, char> replacements =
+        new Dictionary<char, char>() { { 'J', 'j' }, { 'a', 'A' }, { 'n', 'N' }, { 'P', 'p' }, { '3', '7' }, { 'x', 'X' }, { 'D', 'd' } };
+
+
     [Benchmark]
-    public string Slow()
+    public string SlowKey()
     {
-        return SlowStringExtensions.SanitizeToUrl(text);
+        return text.SlowReplace(replacements);
     } 
     [Benchmark]
-    public string Simple()
+    public string FastKey()
     {
-        return StringExtensions.SanitizeToUrl(text);
-    } 
-    
-    [Benchmark]
-    public string SimpleSpan()
-    {
-        return StringSpanExtensions.SanitizeToUrl(text);
-    } 
-    
-    [Benchmark]
-    public string SimpleRegexSpan()
-    {
-        return StringSpanRegexExtensions.SanitizeToUrl(text);
-    } 
-    
-    
-    [Benchmark]
-    public int SlowKey()
-    {
-        return StringSpanRegexExtensions.GetProductIdFromRedisKeyWithoutSpan(key);
-    } 
-    [Benchmark]
-    public int FastKey()
-    {
-        return StringSpanRegexExtensions.GetProductIdFromRedisKey(key);
+        return text.FastReplace(replacements);
     } 
 }
