@@ -12,15 +12,14 @@ public static class StringUtils
     {
         Span<char> textChars = stackalloc char[str.Length];
         str.CopyTo(textChars);
-        int i = 0;
-        foreach(var element in textChars)
+        for (int i = 0; i < textChars.Length; i++)
         {
+            char element = textChars[i];
             ref char replacement = ref CollectionsMarshal.GetValueRefOrNullRef(replacements, element);
             if (!Unsafe.IsNullRef(ref replacement))
             {
                 textChars[i] = replacement;
             }
-            i++;
         }
         return new string(textChars);
     }
@@ -54,7 +53,25 @@ public static class StringUtils
         return result;
     }
     
-    public static string SlowRemove(this string str, IEnumerable<string> replacements)
+    public static string RegexRemove(this Regex regex, string str)
+    {
+        return regex.Replace(str, string.Empty);
+    }
+    
+    public static string RegexReplace(this Regex regex, string str,Dictionary<string, string> replacements)
+    {
+        return regex.Replace(str, match =>
+        {
+            ref string replacement = ref CollectionsMarshal.GetValueRefOrNullRef(replacements, match.Value);
+            if (!Unsafe.IsNullRef(ref replacement))
+            {
+                return replacement;
+            }
+            return match.Value;
+        });
+    }
+    
+    public static string SlowRemove(this string str, string[] replacements)
     {
         var result = new StringBuilder(str);
         foreach (var repl in replacements)
