@@ -20,25 +20,4 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
 
 
-var Encoder = new PngEncoder()
-{
-    BitDepth = PngBitDepth.Bit8,
-    ColorType = PngColorType.Palette,
-    Quantizer = new WuQuantizer(new QuantizerOptions { DitherScale = 0.5f }),
-    CompressionLevel = PngCompressionLevel.BestCompression
-};
-List<ImageSize> sizes = new() { new ImageSize(71, 55), new ImageSize(190, 338), new ImageSize(350, 360), new ImageSize(720, 1280) }; ;
-await using var source = File.OpenRead("./374406_back.png");
-var file =  source.ReadAsBytes();
-
-var results = await MagicNetUtils.OneThreadImageSave(file, sizes);
-
-
-Console.WriteLine($"Koniec");
-
-foreach (var size in results)
-{
-    Console.WriteLine($"Size: {size.Width}, {size.Height}");
-}
-
-ImageSharpUtils.A();
+BenchmarkRunner.Run<BenchmarkBenchmark>();

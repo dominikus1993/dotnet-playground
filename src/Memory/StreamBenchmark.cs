@@ -15,26 +15,36 @@ public class BenchmarkBenchmark
     {
         ThrowExceptionOnToArray = true,
     };
+    private IReadOnlyCollection<ImageSize> Sizes = new ImageSize[] { new ImageSize(71, 55), new ImageSize(190, 338), new ImageSize(350, 360), new ImageSize(720, 1280) };
 
     private Stream FileStream;
 
     public BenchmarkBenchmark()
     {
-        FileStream = File.OpenRead("./jp2137.jpg");
+        FileStream = File.OpenRead("./374406_back.png");
     }
     [Benchmark]
-    public async Task<byte[]> MemoryStream()
+    public async Task<IReadOnlyCollection<ImageSize>> ImageSharpOneThread()
     {
-        await using var memory = new MemoryStream();
-        await FileStream.CopyToAsync(memory!);
-        return memory.ToArray();
+        return await ImageSharpUtils.OneThreadImageSave(FileStream, Sizes);
     }
-
+    
     [Benchmark]
-    public async Task<byte[]> RecyclableMemoryStreamManager()
+    public async Task<IReadOnlyCollection<ImageSize>> magicNetOneThread()
     {
-        await using var memory = manager.GetStream() as RecyclableMemoryStream;
-        await FileStream.CopyToAsync(memory!);
-        return memory.ToArray();
+        return await MagicNetUtils.OneThreadImageSave(FileStream, Sizes);
+    }
+    
+    [Benchmark]
+    public async Task<IReadOnlyCollection<ImageSize>>ImageSharpMultiThread()
+    {
+        return await ImageSharpUtils.ParallelImageSave(FileStream, Sizes);
+    }
+    
+    
+    [Benchmark]
+    public async Task<IReadOnlyCollection<ImageSize>>MagicNetMultiThread()
+    {
+        return await MagicNetUtils.ParallelImageSave(FileStream, Sizes);
     }
 }
