@@ -34,17 +34,29 @@ public class BenchmarkBenchmark
     {
         return await MagicNetUtils.OneThreadImageSave(FileStream, Sizes);
     }
-    
+    //
+    // [Benchmark]
+    // public async Task<IReadOnlyCollection<ImageSize>>ImageSharpMultiThread()
+    // {
+    //     return await ImageSharpUtils.ParallelImageSave(FileStream, Sizes);
+    // }
+    //
+    //
+    // [Benchmark]
+    // public async Task<IReadOnlyCollection<ImageSize>>MagicNetMultiThread()
+    // {
+    //     return await MagicNetUtils.ParallelImageSave(FileStream, Sizes);
+    // }
+
     [Benchmark]
-    public async Task<IReadOnlyCollection<ImageSize>>ImageSharpMultiThread()
+    public IReadOnlyCollection<ImageSize> MagicScalerOneThread()
     {
-        return await ImageSharpUtils.ParallelImageSave(FileStream, Sizes);
+        return MagicScalerUtils.OneThreadImageSave(FileStream, Sizes);
     }
     
-    
     [Benchmark]
-    public async Task<IReadOnlyCollection<ImageSize>>MagicNetMultiThread()
+    public IReadOnlyCollection<ImageSize> SkiaOneThread()
     {
-        return await MagicNetUtils.ParallelImageSave(FileStream, Sizes);
+        return SkiaSharpUtils.OneThreadImageSave(FileStream, Sizes);
     }
 }

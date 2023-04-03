@@ -12,5 +12,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PhotoSauce.MagicScaler" Version="0.13.2" />
+    <PackageReference Include="PhotoSauce.NativeCodecs.Libpng" Version="1.6.37-preview1" />
+    <PackageReference Include="SkiaSharp" Version="2.88.3" />
+  </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
