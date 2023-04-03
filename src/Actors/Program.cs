@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Globalization;
+
 using Akka.Actor;
 
 var system = ActorSystem.Create("tets");
@@ -27,7 +29,9 @@ class PingActor : ReceiveActor
     {
         Receive<Msg>(msg =>
         {
-            Context.Sender.Tell($"Pong {msg.Message}");
+            var date = new DateOnly(2002, 1, 1);
+            var strt = date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+            Context.Sender.Tell($"Pong {msg.Message} {strt}");
         });
     }
 }
