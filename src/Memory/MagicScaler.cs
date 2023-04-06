@@ -5,6 +5,7 @@ using MethodTimer;
 using Microsoft.IO;
 
 using PhotoSauce.MagicScaler;
+using PhotoSauce.NativeCodecs.Libpng;
 
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
@@ -27,6 +28,10 @@ public static class MagicScalerUtils
     [Time]
     public static void A()
     {
+        CodecManager.Configure(collection =>
+        {
+            collection.UseLibpng();
+        });
         Console.WriteLine("test");
     }
     

@@ -55,8 +55,8 @@ public class BenchmarkBenchmark
     }
     
     [Benchmark]
-    public IReadOnlyCollection<ImageSize> SkiaOneThread()
+    public async Task<IReadOnlyCollection<ImageSize>> SkiaOneThread()
     {
-        return SkiaSharpUtils.OneThreadImageSave(FileStream, Sizes);
+        return await SkiaSharpUtils.ParallelImageSave(FileStream, Sizes);
     }
 }
