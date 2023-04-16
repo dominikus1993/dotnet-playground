@@ -32,14 +32,33 @@ internal partial class BenchmarkJsonContext : JsonSerializerContext
 {
 }
 
+public class PersonDeserializer
+{
+    public static async Task<Person?> Deserialize(Stream per)
+    {
+        await using var _ = per;
+        using var personD = await JsonDocument.ParseAsync(per);
+        return personD.Deserialize<Person>();
+    }
+}
+
 public class Tag
 {
     public string Value { get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(Value)}: {Value}";
+    }
 }
 public class Person
 {
     public Name Name { get; set; }
     public int Age { get; set; }
-    
     public IReadOnlyList<Tag> Tags { get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(Name)}: {Name}, {nameof(Age)}: {Age}, {nameof(Tags)}: {string.Join(",", Tags)}";
+    }
 }

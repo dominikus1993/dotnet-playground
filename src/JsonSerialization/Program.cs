@@ -12,4 +12,13 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 Console.WriteLine("Hello, World!");
 
-var summary = BenchmarkRunner.Run<SerializationBenchmark>();
+// var summary = BenchmarkRunner.Run<SerializationBenchmark>();
+
+var person = new Person() { Age = 1, Name = new Name("Jan Pawel"), Tags = new[] { new Tag() { Value = "A" }, new Tag() { Value = "Dupa"} } };
+
+var json = JsonSerializer.SerializeToUtf8Bytes(person);
+
+using var stream = new MemoryStream(json);
+var personDes = await PersonDeserializer.Deserialize(stream);
+
+Console.WriteLine(personDes);
