@@ -10,31 +10,29 @@ namespace Memory;
 
 public class MagicNetUtils
 {
-    public static async Task<IReadOnlyCollection<ImageSize>> OneThreadImageSave(Stream file, IReadOnlyCollection<ImageSize> sizes)
+    public static async IAsyncEnumerable<ImageSize> OneThreadImageSave(Stream file, IReadOnlyCollection<ImageSize> sizes)
     {
+        file.Seek(0, SeekOrigin.Begin);
         // Convert Stream To Array
-        var result = new List<ImageSize>(sizes.Count);
-
+        using var baseimage = new MagickImage(file, Settings);
         foreach (var size in sizes)
         {
-            file.Seek(0, SeekOrigin.Begin);
-
-            using var image = new MagickImage(file, new MagickReadSettings()
-            {
-                BackgroundColor = MagickColors.Transparent,
-                Format = MagickFormat.Png,
-                Depth = 8,
-                FillColor = MagickColors.None,
-                ColorSpace = ColorSpace.Transparent,
-            });
+            using var image = baseimage.Clone();
             image.VirtualPixelMethod = VirtualPixelMethod.Transparent;
             image.Resize(size.Width, size.Height);
             await image.WriteAsync($"374406_back_{size.Height}_{size.Width}.png", MagickFormat.Png);
-            result.Add(size);
+            yield return size;
         }
-
-        return result;
     }
+
+    private static readonly MagickReadSettings Settings = new MagickReadSettings()
+    {
+        BackgroundColor = MagickColors.Transparent,
+        Format = MagickFormat.Png,
+        Depth = 8,
+        FillColor = MagickColors.None,
+        ColorSpace = ColorSpace.Transparent,
+    };
     
     [Time]
     public static async Task<IReadOnlyCollection<ImageSize>> ParallelImageCloneSave(Stream file, IReadOnlyCollection<ImageSize> sizes)
@@ -42,14 +40,7 @@ public class MagicNetUtils
         // Convert Stream To Array
         file.Seek(0, SeekOrigin.Begin);
         var result = new ConcurrentBag<ImageSize>();
-        using var baseImage = new MagickImage(file, new MagickReadSettings()
-        {
-            BackgroundColor = MagickColors.Transparent,
-            Format = MagickFormat.Png,
-            Depth = 8,
-            FillColor = MagickColors.None,
-            ColorSpace = ColorSpace.Transparent,
-        });
+        using var baseImage = new MagickImage(file, Settings);
         await Parallel.ForEachAsync(sizes,
             new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (size, token) =>
             {
@@ -72,14 +63,7 @@ public class MagicNetUtils
         await Parallel.ForEachAsync(sizes,
             new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (size, token) =>
             {
-                using var image = new MagickImage(bytes, new MagickReadSettings()
-                {
-                    BackgroundColor = MagickColors.Transparent,
-                    Format = MagickFormat.Png,
-                    Depth = 8,
-                    FillColor = MagickColors.None,
-                    ColorSpace = ColorSpace.Transparent,
-                });
+                using var image = new MagickImage(bytes, Settings);
                 image.VirtualPixelMethod = VirtualPixelMethod.Transparent;
                 image.Resize(size.Width, size.Height);
                 await image.WriteAsync($"374406_back_{image.Height}_{image.Width}.png", MagickFormat.Png, token);

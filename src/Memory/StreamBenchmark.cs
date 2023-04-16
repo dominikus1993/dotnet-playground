@@ -29,11 +29,11 @@ public class BenchmarkBenchmark
     //     return await ImageSharpUtils.OneThreadImageSave(FileStream, Sizes);
     // }
     //
-    // [Benchmark]
-    // public async Task<IReadOnlyCollection<ImageSize>> magicNetOneThread()
-    // {
-    //     return await MagicNetUtils.OneThreadImageSave(FileStream, Sizes);
-    // }
+    [Benchmark]
+    public async Task<IReadOnlyCollection<ImageSize>> magicNetOneThread()
+    {
+        return await MagicNetUtils.OneThreadImageSave(FileStream, Sizes).ToListAsync();
+    }
     //
     // [Benchmark]
     // public async Task<IReadOnlyCollection<ImageSize>>ImageSharpMultiThread()
