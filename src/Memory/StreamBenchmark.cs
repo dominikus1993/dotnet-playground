@@ -23,17 +23,17 @@ public class BenchmarkBenchmark
     {
         FileStream = File.OpenRead("./374406_back.png");
     }
-    [Benchmark]
-    public async Task<IReadOnlyCollection<ImageSize>> ImageSharpOneThread()
-    {
-        return await ImageSharpUtils.OneThreadImageSave(FileStream, Sizes);
-    }
-    
-    [Benchmark]
-    public async Task<IReadOnlyCollection<ImageSize>> magicNetOneThread()
-    {
-        return await MagicNetUtils.OneThreadImageSave(FileStream, Sizes);
-    }
+    // [Benchmark]
+    // public async Task<IReadOnlyCollection<ImageSize>> ImageSharpOneThread()
+    // {
+    //     return await ImageSharpUtils.OneThreadImageSave(FileStream, Sizes);
+    // }
+    //
+    // [Benchmark]
+    // public async Task<IReadOnlyCollection<ImageSize>> magicNetOneThread()
+    // {
+    //     return await MagicNetUtils.OneThreadImageSave(FileStream, Sizes);
+    // }
     //
     // [Benchmark]
     // public async Task<IReadOnlyCollection<ImageSize>>ImageSharpMultiThread()
@@ -42,21 +42,27 @@ public class BenchmarkBenchmark
     // }
     //
     //
-    // [Benchmark]
-    // public async Task<IReadOnlyCollection<ImageSize>>MagicNetMultiThread()
-    // {
-    //     return await MagicNetUtils.ParallelImageSave(FileStream, Sizes);
-    // }
-
     [Benchmark]
-    public IReadOnlyCollection<ImageSize> MagicScalerOneThread()
+    public async Task<IReadOnlyCollection<ImageSize>> MagicNetMultiThread()
     {
-        return MagicScalerUtils.OneThreadImageSave(FileStream, Sizes);
+        return await MagicNetUtils.ParallelImageSave(FileStream, Sizes);
     }
     
     [Benchmark]
-    public async Task<IReadOnlyCollection<ImageSize>> SkiaOneThread()
+    public async Task<IReadOnlyCollection<ImageSize>> MagicNetMultiThreadClone()
     {
-        return await SkiaSharpUtils.ParallelImageSave(FileStream, Sizes);
+        return await MagicNetUtils.ParallelImageCloneSave(FileStream, Sizes);
     }
+
+    // [Benchmark]
+    // public IReadOnlyCollection<ImageSize> MagicScalerOneThread()
+    // {
+    //     return MagicScalerUtils.OneThreadImageSave(FileStream, Sizes);
+    // }
+    //
+    // [Benchmark]
+    // public async Task<IReadOnlyCollection<ImageSize>> SkiaOneThread()
+    // {
+    //     return await SkiaSharpUtils.ParallelImageSave(FileStream, Sizes);
+    // }
 }

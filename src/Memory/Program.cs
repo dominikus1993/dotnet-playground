@@ -19,15 +19,17 @@ using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
 
-var sizes = new ImageSize[] { new ImageSize(71, 55), new ImageSize(190, 338), new ImageSize(350, 360), new ImageSize(720, 1280) };
-await using var file = File.OpenRead("./374406_back.png");
+// var sizes = new ImageSize[] { new ImageSize(71, 55), new ImageSize(190, 338), new ImageSize(350, 360), new ImageSize(720, 1280) };
+// await using var file = File.OpenRead("./374406_back.png");
+//
+// var res = await MagicNetUtils.ParallelImageSave(file, sizes);
+//
+//
+// foreach (var a in res)
+// {
+//     Console.WriteLine(a);
+// }
+//
+//
 
-var res = await MagicNetUtils.ParallelImageSave(file, sizes);
-
-
-foreach (var a in res)
-{
-    Console.WriteLine(a);
-}
-
-
+BenchmarkDotNet.Running.BenchmarkRunner.Run<BenchmarkBenchmark>();
